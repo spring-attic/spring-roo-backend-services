@@ -128,10 +128,10 @@ fi
 
 # Prune local files and directories which no longer exist remotely
 log "Prune phase: getting list of all JARs from S3"
-#s3cmd $S3CMD_OPTS -r ls s3://spring-roo-repository.springsource.org/ | cut -c "30-"> $WORK_DIR/dist_all.txt
-#if [[ ! "$?" = "0" ]]; then
-#    l_error "s3cmd failed." >&2; exit 1;
-#fi
+s3cmd $S3CMD_OPTS -r ls s3://spring-roo-repository.springsource.org/ | cut -c "30-"> $WORK_DIR/dist_all.txt
+if [[ ! "$?" = "0" ]]; then
+    l_error "s3cmd failed." >&2; exit 1;
+fi
 log "Prune phase: comparing with local files to detect local deletions required"
 find $MIRROR_DIR -iname \* > $WORK_DIR/dist_local.txt
 cat $WORK_DIR/dist_local.txt | cut -c "$MIRROR_DIR_CUT_LENGTH-" > $WORK_DIR/dist_local_cut.txt
