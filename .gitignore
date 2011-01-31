@@ -1,0 +1,12 @@
+target
+work
+mirror
+lib
+bin
+.settings
+.classpath
+.project
+*.ipr
+*.iml
+*.iws
+.idea
