@@ -159,8 +159,8 @@ if [[ ! "$?" = "0" ]]; then
 fi
 log "Sync phase: JARs obtained from S3"
 
-# Find all JARs under the current directory (excluding sources, annotations and 1.0.0 JARs, as the latter were all pre-RooBot anyway)
-JARS=`find $MIRROR_DIR/ -name \*.jar ! -name \*-sources.jar ! -name \*annotations-\*.jar ! -name \*-1.0.0\*.jar -printf " %p" | sed 's/ .\// /g'`
+# Find all JARs under the current directory (excluding sources, annotations, bootstrap, mojos, 1.0.0 JARs, 1.1.0 JARs etc as these are all pre-RooBot Client finalization dates or aren't normal bundles to begin with)
+JARS=`find $MIRROR_DIR/ -name \*.jar ! -name \*-sources.jar ! -name \*annotations-\*.jar ! -name \*.mojo.addon\*.jar ! -name \*.bootstrap\*.jar ! -name \*-1.0.0\*.jar ! -name \*-1.1.0\*.jar -printf " %p" | sed 's/ .\// /g'`
 
 # Delete the local repository.xml, repository.xml.zip etc (we'll create fresh ones in a moment)
 java -jar $BINDEX_JAR -d $MIRROR_DIR/ -r $WORK_DIR/repository.xml -t http://spring-roo-repository.springsource.org/%p/%f -q $JARS
