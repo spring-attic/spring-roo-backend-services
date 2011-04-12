@@ -159,8 +159,10 @@ if [[ ! "$?" = "0" ]]; then
 fi
 log "Sync phase: JARs obtained from S3"
 
-# Find all JARs under the current directory (excluding sources, annotations, bootstrap, mojos, 1.0.0 JARs, 1.1.0 JARs etc as these are all pre-RooBot Client finalization dates or aren't normal bundles to begin with)
-find $MIRROR_DIR/ -name \*.jar ! -name \*-sources.jar ! -name \*annotations-\*.jar ! -name \*.mojo.addon\*.jar ! -name \*.bootstrap\*.jar ! -name \*-1.0.0\*.jar ! -name \*-1.1.0\*.jar | sort > $WORK_DIR/all_files.txt
+# Find all JARs under the current directory
+# Excluding sources, annotations, bootstrap, mojos and ((1.0.0 or 1.1.0 versioned) or (wrapping JARs))
+# This means it's legal to have a 1.0.0 versioned item in wrapping and it will be discovered, but not outside wrapping
+find $MIRROR_DIR/ \( -name \*.jar ! -name \*-sources.jar ! -name \*annotations-\*.jar ! -name \*.mojo.addon\*.jar ! -name \*.bootstrap\*.jar \) -a \( \( ! -name \*-1.0.0\*.jar ! -name \*-1.1.0\*.jar \) -o \( -name *wrapping*.jar  \)  \) | sort > $WORK_DIR/all_files.txt
 
 # Work out the unique directories present in all_files.txt
 cat $WORK_DIR/all_files.txt | sed 's/[a-z|A-Z|0-9|.|-]*.jar//g' | uniq > $WORK_DIR/dirnames.txt
