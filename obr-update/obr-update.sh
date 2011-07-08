@@ -162,7 +162,7 @@ log "Sync phase: JARs obtained from S3"
 # Find all JARs under the current directory
 # Excluding snapshots, sources, annotations, bootstrap, mojos and ((1.0.0 or 1.1.0 versioned) or (wrapping JARs))
 # This means it's legal to have a 1.0.0 versioned item in wrapping and it will be discovered, but not outside wrapping
-find $MIRROR_DIR/ \( -name \*.jar ! -name \*.BUILD-SNAPSHOT.jar ! -name \*-sources.jar ! -name \*annotations-\*.jar ! -name \*.mojo.addon\*.jar ! -name \*.bootstrap\*.jar \) -a \( \( ! -name \*-1.0.0\*.jar ! -name \*-1.1.0\*.jar \) -o \( -name *wrapping*.jar  \)  \) | sort > $WORK_DIR/all_files.txt
+find $MIRROR_DIR/ \( -name \*.jar ! -name \*.BUILD\*.jar ! -name \*-sources.jar ! -name \*annotations-\*.jar ! -name \*.mojo.addon\*.jar ! -name \*.bootstrap\*.jar \) -a \( \( ! -name \*-1.0.0\*.jar ! -name \*-1.1.0\*.jar \) -o \( -name *wrapping*.jar  \)  \) | sort > $WORK_DIR/all_files.txt
 
 # Work out the unique directories present in all_files.txt
 cat $WORK_DIR/all_files.txt | sed 's/[a-z|A-Z|0-9|.|-]*.jar//g' | uniq > $WORK_DIR/dirnames.txt
