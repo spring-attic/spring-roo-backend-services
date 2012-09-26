@@ -199,7 +199,7 @@ log "ZIP Size......: $SIZE_ZIP"
 
 # Send the new repository files up to S3
 log "Sync phase: uploading replacement repository.xml and repository.xml.zip"
-s3cmd $S3CMD_OPTS put -P $WORK_DIR/repository.* s3://spring-roo-repository.springsource.org/
+s3cmd $S3CMD_OPTS put -P $WORK_DIR/repository.* s3://spring-roo-repository.springsource.org/roobot/
 if [[ ! "$?" = "0" ]]; then
     l_error "s3cmd failed." >&2; exit 1;
 fi
