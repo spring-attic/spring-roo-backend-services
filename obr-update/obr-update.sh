@@ -109,9 +109,9 @@ if [ ! -f $BINDEX_JAR ]; then
     if [ "$VERBOSE" = "1" ]; then
         WGET_OPTS="-v"
     fi
-    wget $WGET_OPTS --output-document=$BINDEX_JAR http://www.osgi.org/download/bindex.jar
+    wget $WGET_OPTS --output-document=$BINDEX_JAR https://www.osgi.org/download/bindex.jar
     if [[ ! "$?" = "0" ]]; then
-        l_error "wget was unable to download http://www.osgi.org/download/bindex.jar" >&2; exit 1;
+        l_error "wget was unable to download https://www.osgi.org/download/bindex.jar" >&2; exit 1;
     fi
     log "Downloaded $BINDEX_JAR"
 fi
@@ -211,7 +211,7 @@ log "Completed successfully"
 #               [-d rootdir ] 
 #               [-r repository.xml (.zip ext is ok)] 
 #               [-l file:license.html ] 
-#               [-t http://w.com/servl?s=%s&v=%v %s=symbolic-name
+#               [-t https://w.com/servl?s=%s&v=%v %s=symbolic-name
 #                       %v=version %p=relative path %f=name] 
 #               [-q (quiet) ]
 #               <jar file>*
